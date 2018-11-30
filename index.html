@@ -1,0 +1,205 @@
+<!------Author: Marion Frigillana--->
+<!------Version: Template 1--->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <link rel="stylesheet" href="main.css">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <title>Project X</title>
+</head>
+
+<body>
+
+<nav id="navbar-site" class="navbar navbar-dark bg-dark navbar-expand-sm">
+
+<!-----------------------------Test Code Insert ----------------------------->
+  <a class="navbar-brand" href="#">Project <span class="text-danger">X</span></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+<!-----------------------------Test Code Insert ----------------------------->
+
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav">
+      <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+      <li class="nav-item"><a class="nav-link" href="#features">Features</a></li>
+      <li class="nav-item"><a class="nav-link" href="#reports">Reports</a></li>
+      <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+    </div><!-- navbar-nav -->
+  </ul><!-- container -->
+</nav>
+
+
+<div class="container">
+  <div class="content" id="navbar-site">
+<!--    <h2>Project X</h2>      -->
+<!-----------------------------Test Code Insert ----------------------------->
+<font id="title">Dashboard Control</font><p><br>
+
+<div id="content" class="row">
+  <div class="col-sm-12  col-xs-12">
+    <div id="analog" class="col-sm-6 col-xs-12">
+      <div class="analogclass">
+        <img class="analogsensor" src="img/light.png" />
+        <span class="analogvalue" id="lightvalue">none</span><br>
+      </div>
+      <p>
+      <div class="analogclass">
+        <img class="analogsensor" src="img/temp.png" />
+        <span class="analogvalue" id="temperaturevalue">none</span>
+      </div>
+    </div>
+    <div id="rgb" class="col-sm-6 col-xs-12">
+      <img class="rgbled" src="img/rgb.png" />
+      <table style="margin: 0 auto; margin-top: 10px;">
+        <tr style="text-align: center;">
+          <td><font color="red"><b>Red</b></font></td>
+          <td><font color="green"><b>green</b></font></td>
+          <td><font color="blue"><b>blue</b></font></td>
+        </tr>
+        <tr style="text-align: center;">
+          <td id="redvalue">0</td>
+          <td id="greenvalue">0</td>
+          <td id="bluevalue">0</td>
+        </tr>
+        <tr>
+          <td><input Onchange="changeColor();" type="range" id="rled" class="ledbar" value="0" min="0" max="255"></td>
+          <td><input Onchange="changeColor();" type="range" id="gled" class="ledbar" value="0" min="0" max="255"></td>
+          <td><input Onchange="changeColor();" type="range" id="bled" class="ledbar" value="0" min="0" max="255"></td>
+        </tr>
+      </table>
+      <span id="showcolor"></span>
+    </div>
+  </div>
+</div>
+
+<script>
+  
+  var lightdata;
+  var tempdata;
+  var celsius;
+  setup();
+  // Analog
+  function loop() {
+    if(cpf){
+  
+      lightdata = cpf.get("light sensor");
+      tempdata = cpf.get("temperature sensor");
+      celsius = toCelsius(tempdata);  
+      document.getElementById("lightvalue").innerHTML = lightdata;
+      document.getElementById("temperaturevalue").innerHTML = celsius;
+      
+    }
+    setTimeout(loop, 1000);
+  }
+  loop();
+  
+  // RGB
+  function changeColor() {
+    var Rled = document.getElementById("rled").value;
+    var Gled = document.getElementById("gled").value;
+    var Bled = document.getElementById("bled").value;
+    
+    document.getElementById("redvalue").innerHTML = Rled;
+    document.getElementById("greenvalue").innerHTML = Gled;
+    document.getElementById("bluevalue").innerHTML = Bled;
+    
+    document.getElementById("showcolor").style.backgroundColor = 'rgb(' + Rled + ',' + Gled + ',' + Bled + ')';
+    
+    if(cpf){
+      cpf.setChainableLed("0," + Rled + "," + Gled + "," + Bled + ";");
+    }
+    
+  }
+  
+  // Temperature
+  function toCelsius(value) {
+    var resistance = parseFloat((1023-value) * 10000 / value);
+    var temperature = 1 / (Math.log(resistance / 10000) / 3975+1 / 298.15) - 273.15;
+    
+    return temperature.toFixed(2);
+  }
+  
+  // cpf setup
+  function setup(){
+    if(cpf)
+      cpf.setPinMode('["resetPin"],["setPinMode", "analog", 0, "INPUT"],["setPinMode", "analog", 1,"INPUT"],["grove_newChainableLED", 7, 8, 1]'); 
+      //document.getElementById("demo").innerHTML += ret + "<br>";
+  }
+  
+</script>
+
+
+
+<!-----------------------------Test Code Insert ----------------------------->
+    <p>Wisdom Pet Medicine strives to blend the best in traditional and alternative medicine in the diagnosis and treatment of companion animals including dogs, cats, birds, reptiles, rodents, and fish. We apply the wisdom garnered in the centuries old tradition of veterinary medicine, to find the safest treatments and&nbsp;cures.</p>
+
+    <p>We strive to be your pet's medical experts from youth through the senior years. We build preventative health care plans for each and every one of our patients, based on breed, age, and sex, so that your pet receives the most appropriate care at crucial milestones. We want to give your pet a long and healthy&nbsp;life.</p>
+    
+  </div>
+
+  <div class="content" id="features">
+    <h2>Features</h2>
+
+    <section>
+      <h3>Exotic Pets</h3>
+      <p>We offer specialized care for reptiles, rodents, birds, and other exotic pets.</p>
+    </section>
+
+    <section>
+      <h3>Grooming</h3>
+      <p>Our therapeutic grooming treatments help battle fleas, allergic dermatitis, and other challenging skin conditions.</p>
+    </section>
+
+    <section>
+      <h3>General Health</h3>
+      <p>Wellness and senior exams, ultrasound, x-ray, and dental cleanings are just a few of our general health services.</p>
+    </section>
+
+    <section>
+      <h3>Nutrition</h3>
+      <p>Let our nutrition experts review your pet's diet and prescribe a custom nutrition plan for optimum health and disease prevention.</p>
+    </section>
+
+    <section>
+      <h3>Pest Control</h3>
+      <p>We offer the latest advances in safe and effective prevention and treatment of fleas, ticks, worms, heart worm, and other parasites.</p>
+    </section>
+
+    <section>
+      <h3>Vaccinations</h3>
+      <p>Our veterinarians are experienced in modern vaccination protocols that prevent many of the deadliest diseases in pets.</p>
+    </section>
+    <h5 class= "text-right"><a class="nav-link" href="#navbar-site">^</a></h5>
+  </div>
+
+  <div class="content" id="reports">
+    <h2>Reports</h2>
+    <h3>Graph 1</h3>
+    <p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings lexie gentrify squid 8-bit cred pitchfork.</p>
+    <h3>Logs</h3>
+    <p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings lexie gentrify squid 8-bit cred pitchfork</p>
+    <h3>Logs</h3>
+    <p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings lexie gentrify squid 8-bit cred pitchfork</p>
+    <h5 class= "text-right"><a class="nav-link" href="#navbar-site">^</a></h5>
+  </div>
+
+  <div class="content" id="about">
+    <h3>About Us</h3>
+    <p>
+      Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings lexie gentrify squid 8-bit cred pitchfork
+    </p>
+    <h5 class= "text-right"><a class="nav-link" href="#navbar-site">^</a></h5>
+  </div>
+
+</div><!-- content container -->
+
+<script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+</body>
+</html>
